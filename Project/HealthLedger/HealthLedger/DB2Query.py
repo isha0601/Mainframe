@@ -9,7 +9,7 @@ except Exception as e:
 
 dsn_hostname = "localhost"
 dsn_uid = "db2admin"
-dsn_pwd = "isha0601"
+dsn_pwd = ""
 dsn_database = "MAINFRM"
 dsn_port = "25000"
 dsn_protocol = "TCPIP"
