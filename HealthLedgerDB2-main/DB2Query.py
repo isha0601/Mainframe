@@ -2,7 +2,7 @@ import ibm_db
 
 dsn_hostname = "localhost"
 dsn_uid = "db2admin"
-dsn_pwd = "isha0601"
+dsn_pwd = ""
 dsn_database = "HOSPITAL"
 dsn_port = "25000"
 dsn_protocol = "TCPIP"
@@ -20,7 +20,7 @@ def runQuery(query):
     try:
         conn = ibm_db.connect(dsn, "", "")
         ibm_db.autocommit(conn, ibm_db.SQL_AUTOCOMMIT_ON)
-        ibm_db.exec_immediate(conn, "SET CURRENT SCHEMA = NEJET")
+        ibm_db.exec_immediate(conn, "SET CURRENT SCHEMA = VICTUS")
         stmt = ibm_db.exec_immediate(conn, query)
         ibm_db.close(conn)
         return True, stmt
