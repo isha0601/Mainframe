@@ -1,0 +1,297 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employee Management Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-900 text-zinc-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-zinc-800 border-b border-zinc-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-semibold">Employee Management</h1>
+      <button
+        onclick="fetchEmployees()"
+        class="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-100 rounded-lg transition-all duration-200 text-sm font-medium">
+        Refresh Data
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-6xl mx-auto w-full px-6 py-8">
+    <div class="bg-zinc-800 rounded-lg shadow-2xl overflow-hidden">
+      <div class="px-8 py-6 border-b border-zinc-700 flex justify-between items-center">
+        <h2 class="text-2xl font-semibold">Matched Employee Records</h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-zinc-900/50 border-b border-zinc-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Emp ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Name</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Salary</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Department</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Bonus</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-zinc-400 uppercase tracking-wider">Total Compensation</th>
+            </tr>
+          </thead>
+          <tbody id="employeeTable" class="divide-y divide-zinc-700">
+            <tr class="text-center">
+              <td colspan="6" class="px-6 py-12 text-zinc-400">
+                <div class="flex flex-col items-center space-y-3">
+                  <svg class="w-12 h-12 text-zinc-600 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4zm2 5.3A8 8 0 014 12H0c0 3 1.1 5.8 3 7.9l3-2.6z"></path>
+                  </svg>
+                  <p class="text-lg">Loading records...</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function fetchEmployees() {
+      const table = document.getElementById("employeeTable");
+      table.innerHTML = `
+        <tr class="text-center">
+          <td colspan="6" class="px-6 py-12 text-zinc-400">
+            <div class="flex flex-col items-center space-y-3">
+              <svg class="w-12 h-12 text-zinc-600 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4zm2 5.3A8 8 0 014 12H0c0 3 1.1 5.8 3 7.9l3-2.6z"></path>
+              </svg>
+              <p class="text-lg">Loading records...</p>
+            </div>
+          </td>
+        </tr>`;
+
+      try {
+        const res = await fetch("http://localhost:3000/employees");
+        const data = await res.json();
+
+        if (!Array.isArray(data)) throw new Error("Invalid data format");
+
+        if (data.length === 0) {
+          table.innerHTML = `
+            <tr>
+              <td colspan="6" class="px-6 py-6 text-center text-zinc-400">
+                No matched employees found.
+              </td>
+            </tr>`;
+          return;
+        }
+
+        table.innerHTML = "";
+        data.forEach(emp => {
+          const total = (emp.SALARY || 0) + (emp.BONUS || 0);
+          const row = `
+            <tr class="hover:bg-zinc-700/30 transition-colors duration-150">
+              <td class="px-6 py-3 text-sm">${emp.EMP_ID}</td>
+              <td class="px-6 py-3 text-sm">${emp.NAME}</td>
+              <td class="px-6 py-3 text-sm text-green-400">₹${emp.SALARY?.toFixed(2) || "0.00"}</td>
+              <td class="px-6 py-3 text-sm">${emp.DEPARTMENT}</td>
+              <td class="px-6 py-3 text-sm text-yellow-400">₹${emp.BONUS?.toFixed(2) || "0.00"}</td>
+              <td class="px-6 py-3 text-sm text-blue-400 font-semibold">₹${total.toFixed(2)}</td>
+            </tr>`;
+          table.insertAdjacentHTML("beforeend", row);
+        });
+      } catch (err) {
+        console.error(err);
+        table.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-6 text-center text-red-400">
+              Error loading data. Please check server connection.
+            </td>
+          </tr>`;
+      }
+    }
+
+    window.onload = fetchEmployees;
+  </script>
+</body>
+</html> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Employee</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-900 min-h-screen text-zinc-100">
+
+  <!-- Navbar -->
+  <nav class="bg-zinc-800 border-b border-zinc-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+      <div class="text-xl font-semibold">Employee Manager</div>
+      <button onclick="window.location.href='/view_all'"
+        class="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-zinc-100 rounded-lg text-sm font-medium">
+        Back to Records
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="max-w-3xl mx-auto px-4 py-12">
+    <div class="bg-zinc-800 rounded-lg shadow-2xl overflow-hidden">
+      <div class="px-8 py-6 border-b border-zinc-700">
+        <h1 class="text-2xl font-semibold">Update Employee Record</h1>
+      </div>
+
+      <div class="p-8">
+        <form id="updateForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- EMP_ID (readonly) -->
+          <div class="flex flex-col">
+            <label for="emp_id" class="text-sm font-medium text-zinc-400 mb-2">Employee ID</label>
+            <input type="text" id="emp_id" name="emp_id" readonly
+              class="bg-zinc-700 border-0 rounded-lg px-4 py-3 text-zinc-100 cursor-not-allowed">
+          </div>
+
+          <!-- NAME -->
+          <div class="flex flex-col">
+            <label for="name" class="text-sm font-medium text-zinc-400 mb-2">Employee Name</label>
+            <input type="text" id="name" name="name"
+              class="bg-zinc-700 border-0 rounded-lg px-4 py-3 text-zinc-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800">
+          </div>
+
+          <!-- SALARY -->
+          <div class="flex flex-col">
+            <label for="salary" class="text-sm font-medium text-zinc-400 mb-2">Salary</label>
+            <input type="number" id="salary" name="salary"
+              class="bg-zinc-700 border-0 rounded-lg px-4 py-3 text-zinc-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800">
+          </div>
+
+          <!-- DEPARTMENT -->
+          <div class="flex flex-col">
+            <label for="department" class="text-sm font-medium text-zinc-400 mb-2">Department</label>
+            <select id="department" name="department"
+              class="bg-zinc-700 border-0 rounded-lg px-4 py-3 text-zinc-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800">
+              <option value="">Select department</option>
+              <option value="HR">HR</option>
+              <option value="Finance">Finance</option>
+              <option value="IT">IT</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Sales">Sales</option>
+              <option value="Operations">Operations</option>
+              <option value="Support">Support</option>
+            </select>
+          </div>
+
+          <!-- BONUS -->
+          <div class="flex flex-col">
+            <label for="bonus" class="text-sm font-medium text-zinc-400 mb-2">Bonus</label>
+            <input type="number" id="bonus" name="bonus"
+              class="bg-zinc-700 border-0 rounded-lg px-4 py-3 text-zinc-100 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800">
+          </div>
+
+          <!-- Message -->
+          <div class="md:col-span-2 hidden" id="messageContainer">
+            <div id="successMessage"
+              class="hidden bg-green-900/30 border border-green-700 text-green-400 px-4 py-3 rounded-lg">
+              ✅ Employee record updated successfully!
+            </div>
+            <div id="errorMessage"
+              class="hidden bg-red-900/30 border border-red-700 text-red-400 px-4 py-3 rounded-lg">
+              ❌ Error updating record. Please try again.
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="md:col-span-2 flex flex-col-reverse sm:flex-row gap-3 pt-4">
+            <button type="button" onclick="window.history.back()"
+              class="flex-1 px-6 py-3 bg-zinc-700 hover:bg-zinc-600 text-zinc-400 hover:text-zinc-100 rounded-lg transition">
+              Cancel
+            </button>
+            <button type="submit"
+              class="flex-1 px-6 py-3 bg-zinc-200 hover:bg-zinc-100 text-zinc-900 font-medium rounded-lg transition">
+              Update Record
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get employee ID from query param ?emp_id=EMP001
+    const urlParams = new URLSearchParams(window.location.search);
+    const empId = urlParams.get('emp_id');
+
+    async function fetchEmployee() {
+      if (!empId) return;
+      try {
+        const res = await fetch(`/api/get_employee/?emp_id=${empId}`);
+        const data = await res.json();
+        if (data.status) {
+          document.getElementById('emp_id').value = data.employee.EMP_ID;
+          document.getElementById('name').value = data.employee.NAME;
+          document.getElementById('salary').value = data.employee.SALARY;
+          document.getElementById('department').value = data.employee.DEPARTMENT;
+          document.getElementById('bonus').value = data.employee.BONUS;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    document.getElementById('updateForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = {
+        emp_id: document.getElementById('emp_id').value,
+        name: document.getElementById('name').value,
+        salary: document.getElementById('salary').value,
+        department: document.getElementById('department').value,
+        bonus: document.getElementById('bonus').value
+      };
+
+      const messageContainer = document.getElementById('messageContainer');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+      messageContainer.classList.remove('hidden');
+
+      try {
+        const res = await fetch(`/api/update_employee/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const data = await res.json();
+        if (data.status) {
+          successMessage.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+        } else {
+          successMessage.classList.add('hidden');
+          errorMessage.classList.remove('hidden');
+        }
+      } catch (err) {
+        successMessage.classList.add('hidden');
+        errorMessage.classList.remove('hidden');
+      }
+    });
+
+    window.onload = fetchEmployee;
+  </script>
+</body>
+</html>
