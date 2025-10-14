@@ -1,0 +1,24 @@
+C:\Program Files\IBM\SQLLIB\BIN>db2 connect to MAINFRM user db2admin using isha0601
+
+   Database Connection Information
+
+ Database server        = DB2/NT64 12.1.2.0
+ SQL authorization ID   = DB2ADMIN
+ Local database alias   = MAINFRM
+
+
+C:\Program Files\IBM\SQLLIB\BIN>db2 "INSERT INTO DB2ADMIN.EMPLOYEE_MATCHED (EMP_ID, NAME, SALARY, DEPARTMENT, BONUS) VALU(90, 'Shrawani Kadam', 90000.00, 'ENTC', 5000.00);"
+DB20000I  The SQL command completed successfully.
+
+C:\Program Files\IBM\SQLLIB\BIN>db2 "select * from EMPLOYEE_MATCHED"
+
+EMP_ID      NAME                                                                                                                                                                                                     SALARY            DEPARTMENT                                                                                                                                                                                               BONUS
+----------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -----------------
+          1 Alice                                                                                                                                                                                                             60000.00 Engineering                                                                                                                                                                                                        5000.00
+          2 Bob                                                                                                                                                                                                               55000.00 Sales                                                                                                                                                                                                              2500.00
+         90 Shrawani Kadam                                                                                                                                                                                                    90000.00 ENTC                                                                                                                                                                                                               5000.00
+
+  3 record(s) selected.
+
+
+C:\Program Files\IBM\SQLLIB\BIN>
