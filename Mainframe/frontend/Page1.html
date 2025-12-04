@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="register.js" defer></script>
+    <title>Select Role</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f2f6;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .wrapper {
+        text-align: center;
+      }
+
+      /* Page title at the top */
+      .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #262730; /* dark heading */
+        margin-bottom: 40px;
+      }
+
+      .container {
+        text-align: center;
+        background: white;
+        padding: 50px 60px;
+        border-radius: 12px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        margin-bottom: 35px;
+        color: #262730;
+        font-weight: 600;
+      }
+
+      .btn {
+        display: block;
+        width: 220px;
+        padding: 14px;
+        margin: 15px auto;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn:hover {
+        opacity: 0.9;
+      }
+
+      .admin {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      .admin:hover {
+        background-color: #ff4c4c;
+      }
+
+      .user {
+        background-color: #4a90e2;
+        color: white;
+      }
+
+      .user:hover {
+        background-color: #357abd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Page title -->
+      <div class="page-title">
+        Consolidating Employee Database Through File Matching
+      </div>
+
+      <div class="container">
+        <h1>Select Your Role</h1>
+
+        <button class="btn admin" onclick="location.href='admin-login.html'">
+          Admin
+        </button>
+
+        <button class="btn user" onclick="location.href='user-login.html'">
+          Employee
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="register.js" defer></script>
+
+    <title>Admin Signup</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .box {
+        background: white;
+        padding: 40px;
+        width: 350px;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      input,
+      button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        font-size: 16px;
+      }
+      button {
+        background: #e24a4a;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #c0392b;
+      }
+      a {
+        text-decoration: none;
+        color: #357abd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <h2>Admin Signup</h2>
+
+      <form>
+        <!-- IDs added -->
+        <input type="text" id="admin-name" placeholder="Full Name" />
+        <input
+          type="email"
+          id="admin-email"
+          placeholder="Admin Email"
+          autocomplete="email"
+        />
+        <input
+          type="password"
+          id="admin-password"
+          placeholder="Password"
+          autocomplete="new-pass"
+        />
+        <input
+          type="password"
+          id="admin-confirm"
+          placeholder="Confirm Password"
+          autocomplete="new-pass"
+        />
+      </form>
+
+      <button id="admin-signup-btn">Create Account</button>
+
+      <p>
+        Already have an account?
+        <a href="admin-login.html">Login</a>
+      </p>
+    </div>
+  </body>
+</html>

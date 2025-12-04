@@ -40,7 +40,7 @@ def runQuery(query):
         ibm_db.autocommit(conn, ibm_db.SQL_AUTOCOMMIT_ON)
         stmt = ibm_db.exec_immediate(conn, query)
         ibm_db.close(conn)
-        return True, "✅ Query executed successfully!"
+        return True, " Query executed successfully!"
     except Exception as e:
         return False, str(e)
 
@@ -80,7 +80,7 @@ def mergeEmployeeData():
         """
         ibm_db.exec_immediate(conn, merge_sql)
         ibm_db.close(conn)
-        return True, "✅ Merge completed"
+        return True, " Merge completed"
     except Exception as e:
         return False, str(e)
 
