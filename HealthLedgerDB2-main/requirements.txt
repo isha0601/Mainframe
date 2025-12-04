@@ -1,5 +1,0 @@
-Django==5.2.7
-
-# Optional: only required if you need DB2 connectivity via DB2Query.py
-# Installing ibm_db on Windows may require IBM Data Server Runtime or Visual C++ build tools.
-ibm_db
